@@ -33,7 +33,7 @@
                     @foreach($remedios as $remedio)
                         <tr class="border-b border-gray-300 bg-gray-100">
                             <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $remedio->nome }}</td>
-                            <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $remedio->categoria_especial }}</td>
+                            <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $remedio->categoria->nome ?? 'Sem categoria' }}</td>
                             <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $remedio->quantidade }}</td>
                             <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">R$ {{ number_format($remedio->valor, 2, ',', '.') }}</td>
                             <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ \Carbon\Carbon::parse($remedio->validade)->format('d/m/Y') }}</td>

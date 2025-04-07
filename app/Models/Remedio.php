@@ -11,9 +11,14 @@ class Remedio extends Model
 
     protected $fillable = [
         'nome',
-        'categoria_especial',
+        'id_categoria',
         'quantidade',
         'valor',
         'validade',
     ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'id_categoria');
+    }
 }

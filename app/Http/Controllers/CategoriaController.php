@@ -22,12 +22,17 @@ class CategoriaController extends Controller
     {
         $request->validate([
             'nome' => 'required|string|max:255',
+            'tipo' => 'required|in:produto,remedio',
         ]);
 
-        Categoria::create($request->all());
+        Categoria::create([
+            'nome' => $request->input('nome'),
+            'tipo' => $request->input('tipo'),
+        ]);
 
-        return redirect()->route('categorias.index')->with('success', 'Categoria criada com sucesso!');
+        return redirect()->route('categorias.index')->with('message', 'Categoria criada com sucesso!');
     }
+
 
     public function edit(Categoria $categoria)
     {

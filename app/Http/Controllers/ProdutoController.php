@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Produto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Requests\ProdutoRequest;
-
 
 class ProdutoController extends Controller
 {
@@ -21,17 +21,19 @@ class ProdutoController extends Controller
     public function index()
     {
         $produtos = $this->produto->all();
-        return view('produtos', ['produtos' => $produtos]);   
+        return view('produtos', ['produtos' => $produtos]);
     }
 
     public function create()
-    {
-        return view('produto_create');    
-    }
+{
+    $categorias = Categoria::where('tipo', 'produto')->get();
+    return view('produto_create', compact('categorias'));
+}
 
     public function store(ProdutoRequest $request)
     {
         $dataFormatada = Carbon::createFromFormat('d/m/Y', $request->validade)->format('Y-m-d');
+
         $created = $this->produto->create([
             'nome' => $request->input('nome'),
             'id_categoria' => $request->input('id_categoria'),
@@ -39,22 +41,24 @@ class ProdutoController extends Controller
             'valor' => $request->input('valor'),
             'validade' => $dataFormatada,
         ]);
-        if($created){
+
+        if ($created) {
             return redirect()->back()->with('message', 'Adicionado com sucesso!');
         }
 
-        return redirect()->back()->with('message', 'Ops!Algo deu errado');
+        return redirect()->back()->with('message', 'Ops! Algo deu errado');
     }
 
     public function show(string $id)
     {
-        //return view('produtos', ['produto' => $produto]);
+        //
     }
 
     public function edit(Produto $produto)
-    {
-        return view('produto_edit', ['produto' => $produto]);
-    }
+{
+    $categorias = Categoria::where('tipo', 'produto')->get();
+    return view('produto_edit', compact('produto', 'categorias'));
+}
 
     public function update(ProdutoRequest $request, string $id)
     {
@@ -64,18 +68,17 @@ class ProdutoController extends Controller
         $dados['validade'] = $dataFormatada;
 
         $updated = $this->produto->where('id', $id)->update($dados);
-        if($updated){
+
+        if ($updated) {
             return redirect()->back()->with('message', 'Atualizado com sucesso!');
         }
 
-        return redirect()->back()->with('message', 'Ops!Algo deu errado');
-
-    }   
+        return redirect()->back()->with('message', 'Ops! Algo deu errado');
+    }
 
     public function destroy(string $id)
     {
         $this->produto->where('id', $id)->delete();
-
         return redirect()->route('produtos')->with('message', 'Excluído com sucesso!');
     }
 }

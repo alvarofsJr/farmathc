@@ -11,10 +11,25 @@ class Categoria extends Model
 
     protected $fillable = [
         'nome',
+        'tipo',
+        'categoria_pai_id',
     ];
 
+    // Categoria pai (caso seja subcategoria)
+    public function categoriaPai()
+    {
+        return $this->belongsTo(Categoria::class, 'categoria_pai_id');
+    }
+
+    // Subcategorias
+    public function subcategorias()
+    {
+        return $this->hasMany(Categoria::class, 'categoria_pai_id');
+    }
+
+    // Produtos relacionados (se for do tipo produto)
     public function produtos()
     {
-        return $this->belongsTo(Produto::class, 'id_categoria');
+        return $this->hasMany(Produto::class, 'id_categoria');
     }
 }

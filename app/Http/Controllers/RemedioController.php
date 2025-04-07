@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Remedio;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Requests\RemedioRequest;
-
 
 class RemedioController extends Controller
 {
@@ -20,13 +20,14 @@ class RemedioController extends Controller
 
     public function index()
     {
-        $remedios = $this->remedio->all();
-        return view('remedios', ['remedios' => $remedios]);   
+        $remedios = $this->remedio->with('categoria')->get();
+        return view('remedios', ['remedios' => $remedios]);
     }
 
     public function create()
     {
-        return view('remedio_create');    
+        $categorias = Categoria::where('tipo', 'remedio')->get();
+        return view('remedio_create', compact('categorias'));
     }
 
     public function store(RemedioRequest $request)
@@ -35,11 +36,13 @@ class RemedioController extends Controller
 
         $created = $this->remedio->create([
             'nome' => $request->input('nome'),
+            'id_categoria' => $request->input('id_categoria'),
             'quantidade' => $request->input('quantidade'),
             'valor' => $request->input('valor'),
             'validade' => $dataFormatada,
         ]);
-        if($created){
+
+        if ($created) {
             return redirect()->back()->with('message', 'Adicionado com sucesso!');
         }
 
@@ -48,12 +51,13 @@ class RemedioController extends Controller
 
     public function show(string $id)
     {
-        //return view('remedios', ['remedio' => $remedio]);
+        //
     }
 
     public function edit(Remedio $remedio)
     {
-        return view('remedio_edit', ['remedio' => $remedio]);
+        $categorias = Categoria::where('tipo', 'remedio')->get();
+        return view('remedio_edit', compact('remedio', 'categorias'));
     }
 
     public function update(RemedioRequest $request, string $id)
@@ -64,13 +68,12 @@ class RemedioController extends Controller
         $dados['validade'] = $dataFormatada;
 
         $updated = $this->remedio->where('id', $id)->update($dados);
-        if($updated){
+        if ($updated) {
             return redirect()->back()->with('message', 'Atualizado com sucesso!');
         }
 
-        return redirect()->back()->with('message', 'Ops!Algo deu errado');
-
-    }   
+        return redirect()->back()->with('message', 'Ops! Algo deu errado');
+    }
 
     public function destroy(string $id)
     {

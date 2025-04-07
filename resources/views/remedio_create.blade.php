@@ -1,87 +1,64 @@
 <x-app-layout>
-    <!-- Confirmação -->
     @if(session()->has('message'))
-        <div class="alert alert-success my-3 mx-4 d-flex justify-content-center align-items-center">
+        <div class="alert alert-success my-1 mx-4 d-flex justify-content-center align-items-center">
             <ul class="mb-0">
                 {{ session()->get('message') }}
             </ul>
         </div>
     @endif
 
-    <!-- Container centralizado -->
     <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="card bg-white shadow-lg rounded-lg w-80 h-80 p-4">
-            <div class="card-body flex flex-col justify-between h-full">
+        <div class="card bg-white shadow-lg rounded-lg w-100 h-80 p-4">
+            <div class="card-body">
                 <form action="{{ route('remedios.store') }}" method="POST" class="space-y-3">
                     @csrf
-                    
-                    <!-- Nome do Remédio -->
-                    <div class="relative mb-4">
-                        <input type="text" name="nome" 
-                            class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('nome') border-red-500 @enderror" 
-                            value="{{ old('nome') }}" 
-                            placeholder="Nome">
-                        @error('nome')
-                            <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
 
-                    <!-- Categoria do Remédio -->
-                    <div class="relative mb-4">
-                        <select name="categoria_especial" 
-                            class="w-full py-2 px-3 border text-gray-500 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('categoria_especial') border-red-500 @enderror" 
-                            value="{{ old('categoria_especial') }}">
-                            <option value="" disabled selected>Categoria</option>
-                            <option value="A1">Entorpecentes (A1 e A2)</option>
-                            <option value="A3">Psicotrópicos (A3, B1 e B2)</option>
-                            <option value="C1">Sujeitos a controle especial (C1)</option>
-                            <option value="C2">Retinóicos (C2)</option>
-                            <option value="C3">Imunossupressores (C3)</option>
-                            <option value="C5">Anabolizantes de uso controlado (C5)</option>
-                        </select>
-                        @error('categoria_especial')
-                            <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <!-- Nome -->
+                    <input type="text" name="nome" value="{{ old('nome') }}"
+                        class="w-full py-2 px-3 border rounded-lg @error('nome') border-red-500 @enderror"
+                        placeholder="Nome">
+                    @error('nome')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
 
-                    <!-- Quantidade do Remédio -->
-                    <div class="relative mb-4">
-                        <input type="text" name="quantidade" 
-                            class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('quantidade') border-red-500 @enderror" 
-                            value="{{ old('quantidade') }}" 
-                            placeholder="Quantidade">
-                        @error('quantidade')
-                            <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <!-- Categoria -->
+                    <select name="id_categoria"
+                        class="w-full py-2 px-3 border rounded-lg @error('id_categoria') border-red-500 @enderror">
+                        <option disabled selected>Selecione a categoria</option>
+                        @foreach($categorias as $categoria)
+                            <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                        @endforeach
+                    </select>
+                    @error('id_categoria')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
 
-                    <!-- Preço do Remédio -->
-                    <div class="relative mb-4">
-                        <input type="number" name="valor" 
-                            class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('valor') border-red-500 @enderror" 
-                            value="{{ old('valor') }}" 
-                            placeholder="Preço">
-                        @error('valor')
-                            <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <!-- Quantidade -->
+                    <input type="number" name="quantidade" value="{{ old('quantidade') }}"
+                        class="w-full py-2 px-3 border rounded-lg @error('quantidade') border-red-500 @enderror"
+                        placeholder="Quantidade">
+                    @error('quantidade')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
 
-                    <!-- Validade do Remédio -->
-                    <div class="relative mb-4" x-data>
-                        <input type="text" name="validade" 
-                            class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('validade') border-red-500 @enderror" 
-                            value="{{ old('validade') }} "
-                            x-mask="99/99/9999" placeholder="Validade" >
-                        @error('validade')
-                            <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <!-- Valor -->
+                    <input type="number" name="valor" value="{{ old('valor') }}"
+                        class="w-full py-2 px-3 border rounded-lg @error('valor') border-red-500 @enderror"
+                        placeholder="Valor">
+                    @error('valor')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
 
-                    <!-- Botões -->
-                    <div class="space-y-2">
-                        <button type="submit" class="w-full bg-info hover:bg-info text-white py-2 px-4 rounded-lg transition duration-300">Adicionar</button>
-                        <a href="/remedios" class="w-full block bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-decoration-none">Voltar</a>
-                    </div>
+                    <!-- Validade -->
+                    <input type="text" name="validade" value="{{ old('validade') }}"
+                        class="w-full py-2 px-3 border rounded-lg @error('validade') border-red-500 @enderror"
+                        placeholder="Validade" x-mask="99/99/9999">
+                    @error('validade')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
+
+                    <button type="submit" class="w-full bg-info text-white py-2 px-4 rounded-lg">Cadastrar</button>
+                    <a href="/remedios" class="block text-center bg-gray-500 text-white py-2 px-4 rounded-lg">Voltar</a>
                 </form>
             </div>
         </div>

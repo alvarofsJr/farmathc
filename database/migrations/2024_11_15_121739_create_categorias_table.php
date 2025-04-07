@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
+            $table->enum('tipo', ['produto', 'remedio']); // <- divisão por tipo
+            $table->unsignedBigInteger('categoria_pai_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('categoria_pai_id')->references('id')->on('categorias')->onDelete('cascade');
         });
     }
 
