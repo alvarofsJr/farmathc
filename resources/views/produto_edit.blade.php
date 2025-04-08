@@ -22,7 +22,7 @@
                         @enderror
                     </div>
 
-
+                    <!-- Categoria -->
                     <div class="mb-4 relative">
                         <select name="categoria_id"
                                 class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('categoria_id') border-red-500 @enderror">
@@ -38,7 +38,6 @@
                         @enderror
                     </div>
 
-
                     <!-- Quantidade -->
                     <div class="relative mb-4">
                         <input type="number" name="quantidade"
@@ -51,7 +50,7 @@
 
                     <!-- Valor -->
                     <div class="relative mb-4">
-                        <input type="number" name="valor"
+                        <input type="number" name="valor" step="0.01"
                                class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('valor') border-red-500 @enderror"
                                value="{{ old('valor', $produto->valor) }}" placeholder="Preço">
                         @error('valor')
@@ -63,7 +62,7 @@
                     <div class="relative mb-4" x-data>
                         <input type="text" name="validade"
                                class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('validade') border-red-500 @enderror"
-                               value="{{ old('validade', \Carbon\Carbon::parse($produto->validade)->format('d/m/Y')) }}"
+                               value="{{ old('validade', date('d/m/Y', strtotime($produto->validade))) }}"
                                placeholder="Validade" x-mask="99/99/9999">
                         @error('validade')
                             <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
@@ -75,7 +74,7 @@
                         <button type="submit" class="w-full bg-info hover:bg-info text-white py-2 px-4 rounded-lg transition duration-300">Atualizar</button>
                         <a href="{{ route('produtos.index') }}"
                         class="w-full block bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300">
-                         Voltar
+                            Voltar
                         </a>
                     </div>
                 </form>
