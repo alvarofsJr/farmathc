@@ -8,7 +8,7 @@
     @endif
 
     <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="card bg-white shadow-lg rounded-lg w-100 h-80">
+        <div class="card bg-white shadow-lg rounded-lg w-100 h-80 p-4">
             <div class="card-body flex flex-col justify-between h-full">
                 <form action="{{ route('produtos.store') }}" method="POST" class="space-y-3">
                     @csrf
@@ -25,16 +25,16 @@
 
                     <!-- Categoria -->
                     <div class="mb-4 relative">
-                        <select name="id_categoria"
-                        <select name="id_categoria" class="...">
-                            <option disabled selected>Selecione a categoria</option>
+                        <select name="categoria_id"
+                                class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('categoria_id') border-red-500 @enderror">
+                            <option disabled {{ old('categoria_id') ? '' : 'selected' }}>Selecione a categoria</option>
                             @foreach($categorias as $categoria)
-                                <option value="{{ $categoria->id }}" {{ old('id_categoria', $produto->id_categoria ?? '') == $categoria->id ? 'selected' : '' }}>
+                                <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>
                                     {{ $categoria->nome }}
                                 </option>
                             @endforeach
                         </select>
-                        @error('id_categoria')
+                        @error('categoria_id')
                             <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                         @enderror
                     </div>
@@ -71,8 +71,14 @@
 
                     <!-- Botões -->
                     <div class="space-y-2">
-                        <button type="submit" class="w-full bg-info hover:bg-info text-white py-2 px-4 rounded-lg transition duration-300">Adicionar</button>
-                        <a href="/produtos" class="w-full block bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300">Voltar</a>
+                        <button type="submit"
+                                class="w-full bg-info hover:bg-info text-white py-2 px-4 rounded-lg transition duration-300">
+                            Adicionar
+                        </button>
+                        <a href="{{ route('produtos.index') }}"
+                           class="w-full block bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300">
+                            Voltar
+                        </a>
                     </div>
                 </form>
             </div>

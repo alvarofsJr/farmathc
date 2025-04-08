@@ -22,20 +22,22 @@
                         @enderror
                     </div>
 
-                    <!-- Categoria -->
+
                     <div class="mb-4 relative">
-                        <select name="id_categoria" class="...">
+                        <select name="categoria_id"
+                                class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('categoria_id') border-red-500 @enderror">
                             <option disabled selected>Selecione a categoria</option>
                             @foreach($categorias as $categoria)
-                                <option value="{{ $categoria->id }}" {{ old('id_categoria', $produto->id_categoria ?? '') == $categoria->id ? 'selected' : '' }}>
+                                <option value="{{ $categoria->id }}" {{ old('categoria_id', $produto->categoria_id ?? '') == $categoria->id ? 'selected' : '' }}>
                                     {{ $categoria->nome }}
                                 </option>
                             @endforeach
                         </select>
-                        @error('id_categoria')
+                        @error('categoria_id')
                             <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+
 
                     <!-- Quantidade -->
                     <div class="relative mb-4">
@@ -71,7 +73,10 @@
                     <!-- Botões -->
                     <div class="space-y-2">
                         <button type="submit" class="w-full bg-info hover:bg-info text-white py-2 px-4 rounded-lg transition duration-300">Atualizar</button>
-                        <a href="/produtos" class="w-full block bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300">Voltar</a>
+                        <a href="{{ route('produtos.index') }}"
+                        class="w-full block bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300">
+                         Voltar
+                        </a>
                     </div>
                 </form>
             </div>

@@ -2,83 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Produto;
-use App\Models\Categoria;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use App\Http\Requests\ProdutoRequest;
+use App\Models\Categoria;
+use App\Models\Produto;
 
 class ProdutoController extends Controller
 {
-    public readonly Produto $produto;
-
-    public function __construct()
-    {
-        $this->produto = new Produto();
-    }
-
     public function index()
     {
-        $produtos = $this->produto->all();
-        return view('produtos', ['produtos' => $produtos]);
+        $produtos = Produto::with('categoria')->orderBy('nome')->get();
+        return view('produtos', compact('produtos'));
     }
 
     public function create()
-{
-    $categorias = Categoria::where('tipo', 'produto')->get();
-    return view('produto_create', compact('categorias'));
-}
+    {
+        $categorias = Categoria::where('tipo', 'produto')->orderBy('nome')->get();
+        return view('produto_create', compact('categorias'));
+    }
 
     public function store(ProdutoRequest $request)
     {
-        $dataFormatada = Carbon::createFromFormat('d/m/Y', $request->validade)->format('Y-m-d');
-
-        $created = $this->produto->create([
-            'nome' => $request->input('nome'),
-            'id_categoria' => $request->input('id_categoria'),
-            'quantidade' => $request->input('quantidade'),
-            'valor' => $request->input('valor'),
-            'validade' => $dataFormatada,
-        ]);
-
-        if ($created) {
-            return redirect()->back()->with('message', 'Adicionado com sucesso!');
-        }
-
-        return redirect()->back()->with('message', 'Ops! Algo deu errado');
+        Produto::create($request->validated());
+        return redirect()->route('produtos.index')->with('message', 'Produto adicionado com sucesso!');
     }
 
-    public function show(string $id)
+    public function show(Produto $produto)
     {
-        //
+        return view('produto_show', compact('produto'));
     }
 
     public function edit(Produto $produto)
-{
-    $categorias = Categoria::where('tipo', 'produto')->get();
-    return view('produto_edit', compact('produto', 'categorias'));
-}
-
-    public function update(ProdutoRequest $request, string $id)
     {
-        $dataFormatada = Carbon::createFromFormat('d/m/Y', $request->validade)->format('Y-m-d');
-
-        $dados = $request->except(['_token', '_method']);
-        $dados['validade'] = $dataFormatada;
-
-        $updated = $this->produto->where('id', $id)->update($dados);
-
-        if ($updated) {
-            return redirect()->back()->with('message', 'Atualizado com sucesso!');
-        }
-
-        return redirect()->back()->with('message', 'Ops! Algo deu errado');
+        $categorias = Categoria::where('tipo', 'produto')->orderBy('nome')->get();
+        return view('produto_edit', compact('produto', 'categorias'));
     }
 
-    public function destroy(string $id)
+    public function update(ProdutoRequest $request, Produto $produto)
     {
-        $this->produto->where('id', $id)->delete();
-        return redirect()->route('produtos')->with('message', 'Excluído com sucesso!');
+        $produto->update($request->validated());
+        return redirect()->route('produtos.index')->with('message', 'Produto atualizado com sucesso!');
+    }
+
+    public function destroy(Produto $produto)
+    {
+        $produto->delete();
+        return redirect()->route('produtos.index')->with('message', 'Produto removido com sucesso!');
     }
 }

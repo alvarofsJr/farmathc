@@ -11,14 +11,37 @@ class Produto extends Model
 
     protected $fillable = [
         'nome',
-        'id_categoria',
+        'categoria_id',
         'quantidade',
         'valor',
         'validade',
     ];
 
+    protected $dates = ['validade'];
+
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class, 'id_categoria');
+        return $this->belongsTo(Categoria::class);
+    }
+
+    public function setValidadeAttribute($value)
+    {
+        if (!$value) {
+            $this->attributes['validade'] = null;
+            return;
+        }
+
+        $date = \DateTime::createFromFormat('d/m/Y', $value);
+        $this->attributes['validade'] = $date ? $date->format('Y-m-d') : $value;
+    }
+
+    public function getValidadeAttribute($value)
+    {
+        if (!$value) {
+            return null;
+        }
+
+        $date = \DateTime::createFromFormat('Y-m-d', $value);
+        return $date ? $date->format('d/m/Y') : $value;
     }
 }

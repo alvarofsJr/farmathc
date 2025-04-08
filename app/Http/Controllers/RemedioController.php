@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Remedio;
 use App\Models\Categoria;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Requests\RemedioRequest;
 
@@ -21,7 +19,7 @@ class RemedioController extends Controller
     public function index()
     {
         $remedios = $this->remedio->with('categoria')->get();
-        return view('remedios', ['remedios' => $remedios]);
+        return view('remedios', compact('remedios'));
     }
 
     public function create()
@@ -32,26 +30,14 @@ class RemedioController extends Controller
 
     public function store(RemedioRequest $request)
     {
-        $dataFormatada = Carbon::createFromFormat('d/m/Y', $request->validade)->format('Y-m-d');
+        // dd($request->all());
 
-        $created = $this->remedio->create([
-            'nome' => $request->input('nome'),
-            'id_categoria' => $request->input('id_categoria'),
-            'quantidade' => $request->input('quantidade'),
-            'valor' => $request->input('valor'),
-            'validade' => $dataFormatada,
-        ]);
+        $dados = $request->validated();
+        $dados['validade'] = Carbon::createFromFormat('d/m/Y', $dados['validade'])->format('Y-m-d');
 
-        if ($created) {
-            return redirect()->back()->with('message', 'Adicionado com sucesso!');
-        }
+        $created = $this->remedio->create($dados);
 
-        return redirect()->back()->with('message', 'Ops!Algo deu errado');
-    }
-
-    public function show(string $id)
-    {
-        //
+        return redirect()->back()->with('message', $created ? 'Adicionado com sucesso!' : 'Ops! Algo deu errado');
     }
 
     public function edit(Remedio $remedio)
@@ -60,25 +46,19 @@ class RemedioController extends Controller
         return view('remedio_edit', compact('remedio', 'categorias'));
     }
 
-    public function update(RemedioRequest $request, string $id)
+    public function update(RemedioRequest $request, Remedio $remedio)
     {
-        $dataFormatada = Carbon::createFromFormat('d/m/Y', $request->validade)->format('Y-m-d');
+        $dados = $request->validated();
+        $dados['validade'] = Carbon::createFromFormat('d/m/Y', $dados['validade'])->format('Y-m-d');
 
-        $dados = $request->except(['_token', '_method']);
-        $dados['validade'] = $dataFormatada;
+        $updated = $remedio->update($dados);
 
-        $updated = $this->remedio->where('id', $id)->update($dados);
-        if ($updated) {
-            return redirect()->back()->with('message', 'Atualizado com sucesso!');
-        }
-
-        return redirect()->back()->with('message', 'Ops! Algo deu errado');
+        return redirect()->back()->with('message', $updated ? 'Atualizado com sucesso!' : 'Ops! Algo deu errado');
     }
 
     public function destroy(string $id)
     {
-        $this->remedio->where('id', $id)->delete();
-
+        $this->remedio->destroy($id);
         return redirect()->route('remedios')->with('message', 'Excluído com sucesso!');
     }
 }

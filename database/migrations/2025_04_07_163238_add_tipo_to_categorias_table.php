@@ -10,7 +10,6 @@ class AddTipoToCategoriasTable extends Migration
     {
         Schema::table('remedios', function (Blueprint $table) {
             $table->unsignedBigInteger('id_categoria')->nullable()->after('id');
-
             $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('set null');
         });
     }
@@ -22,5 +21,6 @@ class AddTipoToCategoriasTable extends Migration
             $table->dropColumn('id_categoria');
         });
     }
+
 
 }

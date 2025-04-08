@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->enum('tipo', ['produto', 'remedio']); // <- divisão por tipo
+            $table->enum('tipo', ['produto', 'remedio']); 
             $table->unsignedBigInteger('categoria_pai_id')->nullable();
             $table->timestamps();
 

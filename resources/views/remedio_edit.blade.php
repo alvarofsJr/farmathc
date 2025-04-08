@@ -24,14 +24,19 @@
 
                     <!-- Categoria -->
                     <select name="id_categoria"
-                        class="w-full py-2 px-3 border rounded-lg @error('id_categoria') border-red-500 @enderror">
+                        class="w-full py-2 px-3 border rounded-lg @error('categoria_especial') border-red-500 @enderror">
                         <option disabled selected>Selecione a categoria</option>
                         @foreach($categorias as $categoria)
-                            <option value="{{ $categoria->id }}" {{ $remedio->id_categoria == $categoria->id ? 'selected' : '' }}>
+                            <option value="{{ $categoria->id }}"
+                                {{ old('categoria_especial', $remedio->categoria_especial ?? '') == $categoria->id ? 'selected' : '' }}>
                                 {{ $categoria->nome }}
                             </option>
                         @endforeach
                     </select>
+@error('categoria_especial')
+    <p class="text-red-500 text-sm">{{ $message }}</p>
+@enderror
+
                     @error('id_categoria')
                         <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
@@ -45,7 +50,7 @@
                     @enderror
 
                     <!-- Valor -->
-                    <input type="number" name="valor" value="{{ old('valor', $remedio->valor) }}"
+                    <input type="number" step="0.01" name="valor" value="{{ old('valor', $remedio->valor) }}"
                         class="w-full py-2 px-3 border rounded-lg @error('valor') border-red-500 @enderror"
                         placeholder="Valor">
                     @error('valor')
@@ -53,9 +58,9 @@
                     @enderror
 
                     <!-- Validade -->
-                    <input type="text" name="validade" value="{{ old('validade', $remedio->validade) }}"
+                    <input type="text" name="validade" value="{{ old('validade', \Carbon\Carbon::parse($remedio->validade)->format('d/m/Y')) }}"
                         class="w-full py-2 px-3 border rounded-lg @error('validade') border-red-500 @enderror"
-                        placeholder="Validade" x-mask="99/99/9999">
+                        placeholder="Validade (dd/mm/aaaa)">
                     @error('validade')
                         <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
