@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Fornecedor;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Http\Requests\FornecedorRequest;
-use App\Rules\Cnpj;
-
 
 class FornecedorController extends Controller
 {
@@ -22,38 +18,36 @@ class FornecedorController extends Controller
     public function index()
     {
         $fornecedors = $this->fornecedor->all();
-        return view('fornecedors', ['fornecedors' => $fornecedors]);   
+        return view('fornecedors', compact('fornecedors'));
     }
 
     public function create()
     {
-        return view('fornecedor_create');    
+        return view('fornecedor_create');
     }
 
     public function store(FornecedorRequest $request)
     {
         $cnpjSemFormatacao = preg_replace('/\D/', '', $request->cnpj);
-    
+
         $created = $this->fornecedor->create([
             'nome_fantasia' => $request->input('nome_fantasia'),
-            'email' => $request->input('email'),
+            'email' => trim($request->input('email')),
             'cnpj' => $cnpjSemFormatacao,
         ]);
-        if($created){
-            return redirect()->back()->with('message', 'Adicionado com sucesso!');
-        }
 
-        return redirect()->back()->with('message', 'Ops!Algo deu errado');
+        return redirect()->route('fornecedors')
+            ->with('message', $created ? 'Fornecedor adicionado com sucesso!' : 'Ops! Algo deu errado');
     }
 
     public function show(string $id)
     {
-        //return view('fornecedors', ['fornecedor' => $fornecedor]);
+        // Implementar se necessário
     }
 
     public function edit(Fornecedor $fornecedor)
     {
-        return view('fornecedor_edit', ['fornecedor' => $fornecedor]);
+        return view('fornecedor_edit', compact('fornecedor'));
     }
 
     public function update(FornecedorRequest $request, string $id)
@@ -64,19 +58,16 @@ class FornecedorController extends Controller
         $dados['cnpj'] = $cnpjSemFormatacao;
 
         $updated = $this->fornecedor->where('id', $id)->update($dados);
-        if($updated){
-            return redirect()->back()->with('message', 'Atualizado com sucesso!');
-        }
 
-        return redirect()->back()->with('message', 'Ops!Algo deu errado');
-
-    }   
+        return redirect()->route('fornecedors')
+            ->with('message', $updated ? 'Fornecedor atualizado com sucesso!' : 'Ops! Algo deu errado');
+    }
 
     public function destroy(string $id)
     {
         $this->fornecedor->where('id', $id)->delete();
 
-        return redirect()->route('fornecedors')->with('message', 'Excluído com sucesso!');
+        return redirect()->route('fornecedors')
+            ->with('message', 'Fornecedor excluído com sucesso!');
     }
 }
-

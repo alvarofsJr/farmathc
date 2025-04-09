@@ -30,14 +30,12 @@ class RemedioController extends Controller
 
     public function store(RemedioRequest $request)
     {
-        // dd($request->all());
-
         $dados = $request->validated();
         $dados['validade'] = Carbon::createFromFormat('d/m/Y', $dados['validade'])->format('Y-m-d');
 
         $created = $this->remedio->create($dados);
 
-        return redirect()->back()->with('message', $created ? 'Adicionado com sucesso!' : 'Ops! Algo deu errado');
+        return redirect()->route('remedios')->with('message', $created ? 'Adicionado com sucesso!' : 'Ops! Algo deu errado');
     }
 
     public function edit(Remedio $remedio)
@@ -53,7 +51,7 @@ class RemedioController extends Controller
 
         $updated = $remedio->update($dados);
 
-        return redirect()->back()->with('message', $updated ? 'Atualizado com sucesso!' : 'Ops! Algo deu errado');
+        return redirect()->route('remedios')->with('message', $updated ? 'Atualizado com sucesso!' : 'Ops! Algo deu errado');
     }
 
     public function destroy(string $id)

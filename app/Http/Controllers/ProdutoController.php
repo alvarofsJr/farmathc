@@ -22,8 +22,10 @@ class ProdutoController extends Controller
 
     public function store(ProdutoRequest $request)
     {
-        Produto::create($request->validated());
-        return redirect()->route('produtos.index')->with('message', 'Produto adicionado com sucesso!');
+        $created = Produto::create($request->validated());
+
+        return redirect()->route('produtos.index')
+            ->with('message', $created ? 'Produto adicionado com sucesso!' : 'Ops! Algo deu errado');
     }
 
     public function show(Produto $produto)
@@ -39,13 +41,17 @@ class ProdutoController extends Controller
 
     public function update(ProdutoRequest $request, Produto $produto)
     {
-        $produto->update($request->validated());
-        return redirect()->route('produtos.index')->with('message', 'Produto atualizado com sucesso!');
+        $updated = $produto->update($request->validated());
+
+        return redirect()->route('produtos.index')
+            ->with('message', $updated ? 'Produto atualizado com sucesso!' : 'Ops! Algo deu errado');
     }
 
     public function destroy(Produto $produto)
     {
         $produto->delete();
-        return redirect()->route('produtos.index')->with('message', 'Produto removido com sucesso!');
+
+        return redirect()->route('produtos.index')
+            ->with('message', 'Produto removido com sucesso!');
     }
 }

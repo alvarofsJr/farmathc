@@ -51,7 +51,7 @@
                     </div>
                     <!-- Valor -->
                     <div class="mb-4">
-                        <label for="valor" class="block text-gray-700 font-medium mb-1">Categoria do Produto</label>
+                        <label for="valor" class="block text-gray-700 font-medium mb-1">Valor do Produto</label>
                         <input type="number" name="valor"
                             class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             value="{{ old('valor') }}" >

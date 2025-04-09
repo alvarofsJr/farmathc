@@ -30,9 +30,9 @@ class CategoriaController extends Controller
             'tipo' => $request->input('tipo'),
         ]);
 
-        return redirect()->route('categorias.index')->with('message', 'Categoria criada com sucesso!');
+        return redirect()->route('categorias.index')
+            ->with('message', 'Categoria criada com sucesso!');
     }
-
 
     public function edit(Categoria $categoria)
     {
@@ -47,13 +47,15 @@ class CategoriaController extends Controller
 
         $categoria->update($request->all());
 
-        return redirect()->route('categorias.index')->with('success', 'Categoria atualizada com sucesso!');
+        return redirect()->route('categorias.index')
+            ->with('message', 'Categoria atualizada com sucesso!');
     }
 
     public function destroy(Categoria $categoria)
     {
         $categoria->delete();
 
-        return redirect()->route('categorias.index')->with('success', 'Categoria excluída com sucesso!');
+        return redirect()->route('categorias.index')
+            ->with('message', 'Categoria excluída com sucesso!');
     }
 }
