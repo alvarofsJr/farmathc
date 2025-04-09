@@ -36,7 +36,7 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ route('categorias.edit', $categoria->id) }}" class="text-green-600 hover:underline">Editar</a>
+                                <a href="{{ route('categorias.edit', $categoria->id) }}"  class="no-underline"> <button class="text-green-600 hover:underline">Editar</button></a>
                             </td>
                             <td>
                                 <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta categoria?');">

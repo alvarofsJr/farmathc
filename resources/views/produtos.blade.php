@@ -35,7 +35,7 @@
                             <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">R$ {{ number_format($produto->valor, 2, ',', '.') }}</td>
                             <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $produto->validade }}</td>
                             <td class="whitespace-nowrap px-4 py-2 border-r border-gray-300">
-                                <a href="{{ route('produtos.edit', $produto->id) }}" class="text-green-600 hover:underline">Editar</a>
+                                <a href="{{ route('produtos.edit', $produto->id) }}" class="no-underline"> <button class="text-green-600 hover:underline">Editar</button></a>
                             </td>
                             <td class="whitespace-nowrap px-4 py-2">
                                 <form action="{{ route('produtos.destroy', $produto->id) }}" method="POST" onsubmit="return confirm('Você tem certeza que deseja excluir este produto?');">

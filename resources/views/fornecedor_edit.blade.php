@@ -53,7 +53,7 @@
 
                     <!-- Botões -->
                     <div class="space-y-2">
-                        <button type="submit" class="w-full bg-info hover:bg-info text-white py-2 px-4 rounded-lg transition duration-300">Atualizar</button>
+                        <button type="submit" class="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition duration-300">Atualizar</button>
                         <a href="/fornecedors" class="w-full block bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-decoration-none">Voltar</a>
                     </div>
                 </form>

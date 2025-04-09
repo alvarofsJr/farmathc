@@ -64,7 +64,7 @@
                         <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
 
-                    <button type="submit" class="w-full bg-info text-white py-2 px-4 rounded-lg">Cadastrar</button>
+                    <button type="submit" class="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg">Cadastrar</button>
                     <a href="/remedios" class="block text-center bg-gray-500 text-white py-2 px-4 rounded-lg">Voltar</a>
                 </form>
             </div>

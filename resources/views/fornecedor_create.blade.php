@@ -50,7 +50,7 @@
 
                     
                     <div class="space-y-2 mt-4">
-                        <button type="submit" class="w-full bg-info hover-info text-white py-2 px-4 rounded-lg transition duration-300">Adicionar</button>
+                        <button type="submit" class="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition duration-300">Adicionar</button>
                         <a href="/fornecedors" class="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center block transition duration-300 text-decoration-none">Voltar</a>
                     </div>
                 </form>
