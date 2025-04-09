@@ -1,82 +1,74 @@
 <x-app-layout>
-    @if(session()->has('message'))
-        <div class="alert alert-success my-1 mx-4 d-flex justify-content-center align-items-center">
-            <ul class="mb-0">
-                {{ session()->get('message') }}
-            </ul>
-        </div>
-    @endif
+    <div class="container mx-auto mt-8">
+        <h1 class="text-xl font-bold mb-4">Novo Produto</h1>
 
-    <div class="container mx-auto mt-10 max-w-sm">
-        <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200">
-            <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">Novo Produto</h1>
+        <form x-data="{ showModal: false }" @submit.prevent="showModal = true" method="POST" action="{{ route('produtos.store') }}" class="bg-white p-6 rounded shadow-md">
+            @csrf
 
-            <form method="POST" action="{{ route('produtos.store') }}">
-                @csrf
-                <!--Nome-->
-                <div class="mb-4">
-                    <label for="nome" class="block text-gray-700 font-medium mb-1">Nome do Produto</label>
-                    <input type="text" name="nome" value="{{ old('nome') }}"
-                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    @error('nome')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+            <div class="mb-4">
+                <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
+                <input type="text" name="nome" id="nome" value="{{ old('nome') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                @error('nome')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-                <!-- Categoria -->
-                <div class="mb-4">
-                    <label for="categoria" class="block text-gray-700 font-medium mb-1">Categoria do Produto</label>
-                    <select name="categoria_id"
-                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option disabled {{ old('categoria_id') ? '' : 'selected' }}></option>
-                            @foreach($categorias as $categoria)
-                                <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>
-                                    {{ $categoria->nome }}
-                                </option>
-                            @endforeach
-                    </select>
-                        @error('categoria_id')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+            <div class="mb-4">
+                <label for="categoria_id" class="block text-sm font-medium text-gray-700">Categoria</label>
+                <select name="categoria_id" id="categoria_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    <option value="">Selecione uma categoria</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
+                    @endforeach
+                </select>
+                @error('categoria_id')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-4">
+                <label for="quantidade" class="block text-sm font-medium text-gray-700">Quantidade</label>
+                <input type="number" name="quantidade" id="quantidade" value="{{ old('quantidade') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                @error('quantidade')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-4">
+                <label for="valor" class="block text-sm font-medium text-gray-700">Valor (R$)</label>
+                <input type="text" name="valor" id="valor" value="{{ old('valor') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                @error('valor')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-4">
+                <label for="validade" class="block text-sm font-medium text-gray-700">Validade</label>
+                <input type="text" name="validade" id="validade" value="{{ old('validade') }}"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                    placeholder="dd/mm/aaaa"
+                    x-data x-mask="99/99/9999">
+                @error('validade')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="flex justify-end gap-4">
+                <a href="{{ route('produtos.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">Cancelar</a>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Salvar</button>
+            </div>
+
+
+            <div x-show="showModal" x-transition class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                    <h2 class="text-lg font-bold mb-4">Confirmar Cadastro</h2>
+                    <p class="mb-4">Tem certeza que deseja salvar este produto?</p>
+                    <div class="flex justify-end gap-4">
+                        <button type="button" @click="showModal = false" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">Cancelar</button>
+                        <button type="button" @click="$el.closest('form').submit()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Confirmar</button>
+                    </div>
                 </div>
-                    <!-- Quantidade -->
-                    <div class="mb-4">
-                        <label for="quantidade" class="block text-gray-700 font-medium mb-1">Quantidade do Produto</label>
-                        <input type="number" name="quantidade"
-                            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            value="{{ old('quantidade') }}" >
-                        @error('quantidade')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <!-- Valor -->
-                    <div class="mb-4">
-                        <label for="valor" class="block text-gray-700 font-medium mb-1">Valor do Produto</label>
-                        <input type="number" name="valor"
-                            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            value="{{ old('valor') }}" >
-                        @error('valor')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <!-- Validade -->
-                    <div class="mb-4" x-data>
-                        <label for="validade" class="block text-gray-700 font-medium mb-1">Validade do Produto</label>
-                        <input type="text" name="validade"
-                            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            value="{{ old('validade') }}" x-mask="99/99/9999">
-                        @error('validade')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                <div class="flex justify-between">
-                    <x-primary-button type="submit">Adicionar</x-primary-button>
-                    <a href="{{ route('produtos.index') }}"
-                        class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
-                        Cancelar
-                    </a>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </x-app-layout>

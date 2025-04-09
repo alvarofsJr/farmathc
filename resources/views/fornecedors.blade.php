@@ -1,19 +1,20 @@
 <x-app-layout>
-    <div class="container mx-auto mt-3">
+    <div
+        class="container mx-auto mt-3"
+        x-data="{ show: false, fornecedorId: null, openDeleteModal(id) { this.show = true; this.fornecedorId = id } }"
+    >
         <h1 class="text-xl font-bold mb-4">Lista de Fornecedores</h1>
 
         @if(session()->has('message'))
-            <div class="alert alert-success my-3 mx-4 d-flex justify-content-center align-items-center">
-                <ul class="mb-0">
-                    {{ session()->get('message') }}
-                </ul>
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 mx-2">
+                {{ session('message') }}
             </div>
         @endif
 
-        <div class="flex justify-start mb-1">
-            <form method="GET" action="{{ route('fornecedors.create') }}">
-                <x-primary-button type="submit">Novo Fornecedor</x-primary-button>
-            </form>
+        <div class="flex justify-start mb-2">
+            <a href="{{ route('fornecedors.create') }}">
+                <x-primary-button> Novo Fornecedor </x-primary-button>
+            </a>
         </div>
 
         <div class="overflow-x-auto">
@@ -30,25 +31,51 @@
                 <tbody>
                     @foreach($fornecedors as $fornecedor)
                         <tr class="border-b border-gray-300 bg-gray-100">
-                            <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $fornecedor->nome_fantasia }}</td>
-                            <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "$1.$2.$3/$4-$5", $fornecedor->cnpj) }}</td>
-                            <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $fornecedor->email }}</td>
-                            <td class="whitespace-nowrap px-4 py-2 border-r border-gray-300">
-                                <a href="{{ route('fornecedors.edit', ['fornecedor' => $fornecedor->id]) }}">
-                                    <button class="text-green-600 hover:underline">Editar</button>
+                            <td class="px-2 py-2 border-r border-gray-300">{{ $fornecedor->nome_fantasia }}</td>
+                            <td class="px-2 py-2 border-r border-gray-300">
+                                {{ preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "$1.$2.$3/$4-$5", $fornecedor->cnpj) }}
+                            </td>
+                            <td class="px-2 py-2 border-r border-gray-300">{{ $fornecedor->email }}</td>
+                            <td class="px-4 py-2 border-r border-gray-300">
+                                <a href="{{ route('fornecedors.edit', $fornecedor->id) }}" class="text-green-600 hover:underline">
+                                    Editar
                                 </a>
                             </td>
-                            <td class="whitespace-nowrap px-4 py-2">
-                                <form action="{{ route('fornecedors.destroy', $fornecedor->id) }}" method="POST" onsubmit="return confirm('Você tem certeza que deseja excluir este fornecedor?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:underline">Excluir</button>
-                                </form>
+                            <td class="px-4 py-2">
+                                <button
+                                    @click="openDeleteModal({{ $fornecedor->id }})"
+                                    class="text-red-600 hover:underline"
+                                >
+                                    Excluir
+                                </button>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+        </div>
+
+        <!-- Modal de confirmação de exclusão -->
+        <div
+            x-show="show"
+            x-transition
+            x-cloak
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        >
+            <div class="bg-white p-6 rounded shadow-lg max-w-md w-full">
+                <h2 class="text-lg font-bold mb-4 text-center text-red-600">Confirmar Exclusão</h2>
+                <p class="text-center mb-4">Tem certeza que deseja excluir este fornecedor?</p>
+                <form :action="`/fornecedors/${fornecedorId}`" method="POST" class="flex justify-center gap-4">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" @click="show = false" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+                        Confirmar
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </x-app-layout>

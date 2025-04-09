@@ -25,13 +25,10 @@ class CategoriaController extends Controller
             'tipo' => 'required|in:produto,remedio',
         ]);
 
-        Categoria::create([
-            'nome' => $request->input('nome'),
-            'tipo' => $request->input('tipo'),
-        ]);
+        Categoria::create($request->only('nome', 'tipo'));
 
         return redirect()->route('categorias.index')
-            ->with('message', 'Categoria criada com sucesso!');
+            ->with('success', 'Categoria criada com sucesso!');
     }
 
     public function edit(Categoria $categoria)
@@ -43,12 +40,13 @@ class CategoriaController extends Controller
     {
         $request->validate([
             'nome' => 'required|string|max:255',
+            'tipo' => 'required|in:produto,remedio',
         ]);
 
-        $categoria->update($request->all());
+        $categoria->update($request->only('nome', 'tipo'));
 
         return redirect()->route('categorias.index')
-            ->with('message', 'Categoria atualizada com sucesso!');
+            ->with('success', 'Categoria atualizada com sucesso!');
     }
 
     public function destroy(Categoria $categoria)
@@ -56,6 +54,6 @@ class CategoriaController extends Controller
         $categoria->delete();
 
         return redirect()->route('categorias.index')
-            ->with('message', 'Categoria excluída com sucesso!');
+            ->with('success', 'Categoria excluída com sucesso!');
     }
 }
