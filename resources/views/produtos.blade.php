@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container mx-auto mt-3">
+    <div class="container mx-auto mt-8 px-4">
         <h1 class="text-2xl font-bold mb-6 text-center">Lista de Produtos</h1>
 
         @if(session()->has('message'))

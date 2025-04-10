@@ -1,9 +1,9 @@
 <x-app-layout>
     <div
-        class="container mx-auto mt-3"
+        class="container mx-auto mt-8 px-4"
         x-data="{ show: false, fornecedorId: null, openDeleteModal(id) { this.show = true; this.fornecedorId = id } }"
     >
-        <h1 class="text-xl font-bold mb-4">Lista de Fornecedores</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center">Lista de Fornecedores</h1>
 
         @if(session()->has('message'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 mx-2">
@@ -11,7 +11,7 @@
             </div>
         @endif
 
-        <div class="flex justify-start mb-2">
+        <div class="flex justify-end mb-2">
             <a href="{{ route('fornecedors.create') }}">
                 <x-primary-button> Novo Fornecedor </x-primary-button>
             </a>
@@ -37,15 +37,14 @@
                             </td>
                             <td class="px-2 py-2 border-r border-gray-300">{{ $fornecedor->email }}</td>
                             <td class="px-4 py-2 border-r border-gray-300">
-                                <a href="{{ route('fornecedors.edit', $fornecedor->id) }}" class="text-green-600 hover:underline">
-                                    Editar
+                                <a href="{{ route('fornecedors.edit', $fornecedor->id) }}" >
+                                    <button class="text-green-600 hover:underline">Editar</button>
                                 </a>
                             </td>
                             <td class="px-4 py-2">
                                 <button
                                     @click="openDeleteModal({{ $fornecedor->id }})"
-                                    class="text-red-600 hover:underline"
-                                >
+                                    class="text-red-600 hover:underline">
                                     Excluir
                                 </button>
                             </td>
