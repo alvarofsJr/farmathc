@@ -3,7 +3,7 @@
         class="container mx-auto mt-8 px-4"
         x-data="{ show: false, remedioId: null, openDeleteModal(id) { this.show = true; this.remedioId = id } }"
     >
-        <h1 class="text-xl font-bold mb-4">Lista de Remédios</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center">Lista de Remédios Controlados</h1>
 
         @if(session()->has('message'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
@@ -12,8 +12,8 @@
         @endif
 
         <div class="flex justify-end mb-4">
-            <a href="{{ route('remedios.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-                Novo Remédio
+            <a href="{{ route('remedios.create') }}" >
+            <x-primary-button> Novo Remédio Controlado </x-primary-button>
             </a>
         </div>
 
@@ -39,8 +39,8 @@
                             <td class="py-2 px-4">R$ {{ number_format($remedio->valor, 2, ',', '.') }}</td>
                             <td class="py-2 px-4">{{ \Carbon\Carbon::parse($remedio->validade)->format('d/m/Y') }}</td>
                             <td class="py-2 px-4">
-                                <a href="{{ route('remedios.edit', $remedio->id) }}" class="text-blue-600 hover:underline">
-                                    Editar
+                                <a href="{{ route('remedios.edit', $remedio->id) }}" >
+                                    <button class="text-green-600 hover:underline">Editar</button>
                                 </a>
                             </td>
                             <td class="py-2 px-4">

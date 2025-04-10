@@ -1,5 +1,6 @@
 <x-app-layout>
-    <div class="container mx-auto mt-8">
+    <div class="container mx-auto mt-10 max-w-sm">
+        <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200">
         <h1 class="text-xl font-bold mb-4">Novo Produto</h1>
 
         <form x-data="{ showModal: false }" @submit.prevent="showModal = true" method="POST" action="{{ route('produtos.store') }}" class="bg-white p-6 rounded shadow-md ">
@@ -69,5 +70,6 @@
                 </div>
             </div>
         </form>
+        </div>
     </div>
 </x-app-layout>
