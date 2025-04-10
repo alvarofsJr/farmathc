@@ -4,7 +4,7 @@
 
         <form x-data="{ showModal: false }" @submit.prevent="showModal = true" method="POST" action="{{ route('produtos.store') }}" class="bg-white p-6 rounded shadow-md ">
             @csrf
-
+            <!-- Nome -->
             <div class="mb-4">
                 <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
                 <input type="text" name="nome" id="nome" value="{{ old('nome') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
@@ -12,7 +12,7 @@
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
-
+            <!-- Categoria -->
             <div class="mb-4">
                 <label for="categoria_id" class="block text-sm font-medium text-gray-700">Categoria</label>
                 <select name="categoria_id" id="categoria_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
@@ -25,7 +25,7 @@
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
-
+            <!-- Quantidade -->
             <div class="mb-4">
                 <label for="quantidade" class="block text-sm font-medium text-gray-700">Quantidade</label>
                 <input type="number" name="quantidade" id="quantidade" value="{{ old('quantidade') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
@@ -33,7 +33,7 @@
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
-
+            <!-- Valor -->
             <div class="mb-4">
                 <label for="valor" class="block text-sm font-medium text-gray-700">Valor (R$)</label>
                 <input type="text" name="valor" id="valor" value="{{ old('valor') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
@@ -41,7 +41,7 @@
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
-
+            <!-- Validade -->
             <div class="mb-4">
                 <label for="validade" class="block text-sm font-medium text-gray-700">Validade</label>
                 <input type="text" name="validade" id="validade" value="{{ old('validade') }}"
@@ -52,13 +52,12 @@
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
-
+            <!-- Botões -->
             <div class="flex justify-end gap-4">
                 <a href="{{ route('produtos.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">Cancelar</a>
                 <button type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded">Salvar</button>
             </div>
-
-
+            <!-- Modal -->
             <div x-show="showModal" x-transition class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                 <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
                     <h2 class="text-lg font-bold mb-4 text-cyan-700">Confirmar Cadastro</h2>

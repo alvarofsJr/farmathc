@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container mx-auto mt-3">
-        <h1 class="text-xl font-bold mb-4">Lista de Produtos</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center">Lista de Produtos</h1>
 
         @if(session()->has('message'))
             <div id="message-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -14,7 +14,7 @@
             </div>
         @endif
 
-        <div class="flex justify-start mb-4">
+        <div class="flex justify-end mb-4">
             <a href="{{ route('produtos.create') }}">
                 <x-primary-button> Novo Produto </x-primary-button>
             </a>
