@@ -1,19 +1,19 @@
 <x-app-layout>
+    <div class="container mx-auto mt-10 max-w-sm" x-data="{ showConfirm: false }">
     @if(session()->has('message'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 mx-2">
             {{ session()->get('message') }}
         </div>
     @endif
-
-    <div class="flex items-center justify-center min-h-screen px-4" x-data="{ showConfirm: false }">
-        <div class="card bg-white shadow-lg rounded-lg w-100 h-80 p-4">
-            <div class="card-body p-4 flex flex-col justify-between">
-                <form id="form-create-fornecedor" action="{{ route('fornecedors.store') }}" method="POST">
+        <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+            <h2 class="text-xl font-semibold mb-4 text-center">Novo Fornecedor</h2>
+                <form id="form-create-fornecedor" action="{{ route('fornecedors.store') }}" method="POST" class="space-y-4">
                     @csrf
 
-                    <div class="mb-4 relative">
+                    <div class="mb-4">
+                    <label for="nome_fantasia" class="block text-sm font-medium text-gray-700">Nome do Fornecedor</label>
                         <input type="text" name="nome_fantasia"
-                            class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('nome_fantasia') border-red-500 @enderror"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                             value="{{ old('nome_fantasia') }}"
                             placeholder="Nome da Empresa">
                         @error('nome_fantasia')
@@ -21,9 +21,10 @@
                         @enderror
                     </div>
 
-                    <div class="mb-4 relative">
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email do Fornecedor</label>
                         <input type="text" name="email"
-                            class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('email') border-red-500 @enderror"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                             value="{{ old('email') }}"
                             placeholder="E-mail">
                         @error('email')
@@ -31,9 +32,10 @@
                         @enderror
                     </div>
 
-                    <div class="mb-4 relative" x-data>
+                    <div class="mb-4" x-data>
+                    <label for="cnpj" class="block text-sm font-medium text-gray-700">CNPJ do Fornecedor</label>
                         <input type="text" name="cnpj"
-                            class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 @error('cnpj') border-red-500 @enderror"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                             value="{{ old('cnpj') }}"
                             x-mask="99.999.999/9999-99"
                             placeholder="CNPJ"
@@ -43,21 +45,19 @@
                         @enderror
                     </div>
 
-                    <div class="space-y-2 mt-4">
+                    <div class="flex justify-end gap-4">
+                        <a href="/fornecedors"
+                            class="bg-gray-500 hover:bg-gray-600 text-white text-center py-2 px-4 rounded">
+                            Voltar
+                        </a>
                         <button
                             type="button"
                             @click="showConfirm = true"
-                            class="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition duration-300"
-                        >
-                            Adicionar
+                            class="bg-cyan-600 hover:bg-cyan-700 text-white py-2 px-4 rounded">
+                            Cadastrar
                         </button>
-                        <a href="/fornecedors"
-                            class="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center block transition duration-300">
-                            Voltar
-                        </a>
                     </div>
                 </form>
-            </div>
         </div>
 
         <!-- Modal de confirmação -->

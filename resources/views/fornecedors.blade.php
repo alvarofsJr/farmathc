@@ -30,13 +30,13 @@
                 </thead>
                 <tbody>
                     @foreach($fornecedors as $fornecedor)
-                        <tr class="border-b border-gray-300 bg-gray-100">
-                            <td class="px-2 py-2 border-r border-gray-300">{{ $fornecedor->nome_fantasia }}</td>
-                            <td class="px-2 py-2 border-r border-gray-300">
+                        <tr class="border-b">
+                            <td class="px-4 py-2">{{ $fornecedor->nome_fantasia }}</td>
+                            <td class="px-4 py-2">
                                 {{ preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "$1.$2.$3/$4-$5", $fornecedor->cnpj) }}
                             </td>
-                            <td class="px-2 py-2 border-r border-gray-300">{{ $fornecedor->email }}</td>
-                            <td class="px-4 py-2 border-r border-gray-300">
+                            <td class="px-4 py-2">{{ $fornecedor->email }}</td>
+                            <td class="px-4 py-2">
                                 <a href="{{ route('fornecedors.edit', $fornecedor->id) }}" >
                                     <button class="text-green-600 hover:underline">Editar</button>
                                 </a>
