@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="container mx-auto mt-10 max-w-sm">
         <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200">
-        <h1 class="text-xl font-bold mb-4">Novo Produto</h1>
+        <h1 class="text-xl font-bold mb-4 text-center">Novo Produto</h1>
 
-        <form x-data="{ showModal: false }" @submit.prevent="showModal = true" method="POST" action="{{ route('produtos.store') }}" class="bg-white p-6 rounded shadow-md ">
+        <form x-data="{ showModal: false }" @submit.prevent="showModal = true" method="POST" action="{{ route('produtos.store') }}" class="bg-white p-6  ">
             @csrf
             <!-- Nome -->
             <div class="mb-4">
@@ -61,9 +61,9 @@
             <!-- Modal -->
             <div x-show="showModal" x-transition class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                 <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-                    <h2 class="text-lg font-bold mb-4 text-cyan-700">Confirmar Cadastro</h2>
-                    <p class="mb-4">Tem certeza que deseja salvar este produto?</p>
-                    <div class="flex justify-end gap-4">
+                    <h2 class="text-lg font-bold mb-4 text-cyan-700 text-center">Confirmar Cadastro</h2>
+                    <p class="mb-4 text-center">Tem certeza que deseja salvar este produto?</p>
+                    <div class="flex justify-center gap-4">
                         <button type="button" @click="showModal = false" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">Cancelar</button>
                         <button type="button" @click="$el.closest('form').submit()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded">Confirmar</button>
                     </div>

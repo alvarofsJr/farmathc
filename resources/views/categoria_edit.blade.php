@@ -31,17 +31,15 @@
                 </div>
 
                 <!-- Botões -->
-                <div class="flex justify-between">
-                    {{-- Botão para abrir modal --}}
-                    <button type="button" onclick="openConfirmModalEdit()"
-                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-                        Atualizar
-                    </button>
-
-                    <a href="{{ route('categorias.index') }}"
+                <div class="flex justify-end gap-4">
+                <a href="{{ route('categorias.index') }}"
                         class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
                         Cancelar
                     </a>
+                    <button type="button" onclick="openConfirmModalEdit()"
+                        class="px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 transition">
+                        Atualizar
+                    </button>
                 </div>
             </form>
         </div>
@@ -50,13 +48,14 @@
     {{-- Modal de Confirmação --}}
     <div id="confirm-modal-edit" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white p-6 rounded shadow-md max-w-sm w-full">
-            <h2 class="text-lg font-semibold mb-4">Confirmar atualização</h2>
-            <p class="mb-4">Deseja realmente atualizar esta categoria?</p>
-            <div class="flex justify-end space-x-2">
-                <button onclick="submitFormEdit()"
-                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Sim</button>
+            <h2 class="text-lg font-semibold mb-4 text-cyan-700 text-center">Confirmar atualização</h2>
+            <p class="mb-4 text-center">Deseja realmente atualizar esta categoria?</p>
+            <div class="flex justify-center space-x-2">
                 <button onclick="closeConfirmModalEdit()"
                     class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">Cancelar</button>
+                <button onclick="submitFormEdit()"
+                    class="px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 transition">Confirmar</button>
+                
             </div>
         </div>
     </div>

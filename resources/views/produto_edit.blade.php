@@ -82,8 +82,8 @@
 
                 <div x-show="showModal" x-transition class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div class="bg-white p-6 rounded-lg shadow-md max-w-sm w-full">
-                        <h2 class="text-lg font-semibold mb-4 text-center text-cyan-700">Confirmar Edição</h2>
-                        <p class="text-center text-gray-700">Deseja realmente salvar as alterações?</p>
+                        <h2 class="text-lg font-semibold mb-4 text-center text-cyan-700 text-center">Confirmar Edição</h2>
+                        <p class="text-center">Deseja realmente salvar as alterações?</p>
                         <div class="mt-4 flex justify-center gap-4">
                             <button type="button" @click="showModal = false" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded">Cancelar</button>
                             <button type="button" @click="$el.closest('form').submit()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded">Confirmar</button>

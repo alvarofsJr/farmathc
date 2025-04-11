@@ -34,16 +34,15 @@
                     @enderror
                 </div>
 
-                <div class="flex justify-between">
-                    <button type="button" onclick="openConfirmModalCriar()"
-                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-                        Salvar
-                    </button>
-
-                    <a href="{{ route('categorias.index') }}"
+                <div class="flex justify-end gap-4">
+                <a href="{{ route('categorias.index') }}"
                         class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
                         Cancelar
                     </a>
+                    <button type="button" onclick="openConfirmModalCriar()"
+                        class="px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 transition">
+                        Salvar
+                    </button>
                 </div>
             </form>
         </div>
@@ -52,13 +51,13 @@
     {{-- Modal de confirmação --}}
     <div id="confirm-modal-criar" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white p-6 rounded shadow-md max-w-sm w-full">
-            <h2 class="text-lg font-semibold mb-4">Confirmar criação</h2>
-            <p class="mb-4">Deseja realmente salvar esta categoria?</p>
-            <div class="flex justify-end space-x-2">
-                <button onclick="submitFormCriar()"
-                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Sim</button>
+            <h2 class="text-lg font-semibold mb-4 text-cyan-700 text-center">Confirmar criação</h2>
+            <p class="mb-4 text-center">Deseja realmente salvar esta categoria?</p>
+            <div class="flex justify-center gap-4">
                 <button onclick="closeConfirmModalCriar()"
                     class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">Cancelar</button>
+                <button onclick="submitFormCriar()"
+                    class="px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 transition">Confirmar</button>  
             </div>
         </div>
     </div>

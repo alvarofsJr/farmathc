@@ -20,27 +20,27 @@
             </a>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full text-center text-sm font-light text-gray-800 border border-gray-300 rounded-md shadow-lg">
+        <div class="overflow-x-auto rounded bg-white  shadow">
+            <table class="min-w-full text-sm text-center text-gray-800">
                 <thead class="border-b border-gray-300 bg-gray-800">
                     <tr>
-                        <th class="py-3 px-2 font-medium text-white">Nome</th>
-                        <th class="py-3 px-2 font-medium text-white">Categoria</th>
-                        <th class="py-3 px-2 font-medium text-white">Quantidade</th>
-                        <th class="py-3 px-2 font-medium text-white">Preço</th>
-                        <th class="py-3 px-2 font-medium text-white">Validade</th>
-                        <th class="py-3 px-2 font-medium text-white" colspan="2">Ações</th>
+                        <th class="py-3 px-4 font-medium text-white">Nome</th>
+                        <th class="py-3 px-4 font-medium text-white">Categoria</th>
+                        <th class="py-3 px-4 font-medium text-white">Quantidade</th>
+                        <th class="py-3 px-4 font-medium text-white">Preço</th>
+                        <th class="py-3 px-4 font-medium text-white">Validade</th>
+                        <th class="py-3 px-4 font-medium text-white" colspan="2">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($produtos as $produto)
-                        <tr class="border-b border-gray-300 bg-gray-100">
-                            <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $produto->nome }}</td>
-                            <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $produto->categoria->nome ?? '-' }}</td>
-                            <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $produto->quantidade }}</td>
-                            <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">R$ {{ number_format($produto->valor, 2, ',', '.') }}</td>
-                            <td class="whitespace-nowrap px-2 py-2 border-r border-gray-300">{{ $produto->validade }}</td>
-                            <td class="whitespace-nowrap px-4 py-2 border-r border-gray-300">
+                        <tr class="border-b">
+                            <td class="py-2 px-4">{{ $produto->nome }}</td>
+                            <td class="py-2 px-4">{{ $produto->categoria->nome ?? '-' }}</td>
+                            <td class="py-2 px-4">{{ $produto->quantidade }}</td>
+                            <td class="py-2 px-4">R$ {{ number_format($produto->valor, 2, ',', '.') }}</td>
+                            <td class="py-2 px-4">{{ $produto->validade }}</td>
+                            <td class="py-2 px-4">
                                 <a href="{{ route('produtos.edit', $produto->id) }}" class="no-underline">
                                     <button class="text-green-600 hover:underline">Editar</button>
                                 </a>

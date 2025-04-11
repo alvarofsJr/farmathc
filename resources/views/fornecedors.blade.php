@@ -11,21 +11,21 @@
             </div>
         @endif
 
-        <div class="flex justify-end mb-2">
+        <div class="flex justify-end mb-4">
             <a href="{{ route('fornecedors.create') }}">
                 <x-primary-button> Novo Fornecedor </x-primary-button>
             </a>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full text-center text-sm font-light text-gray-800 border border-gray-300 rounded-md shadow-lg">
-                <thead class="border-b border-gray-300 bg-gray-800">
+        <div class="overflow-x-auto bg-white rounded shadow">
+            <table class="min-w-full text-sm text-center text-gray-800">
+                <thead class="bg-gray-800 text-white">
                     <tr>
-                        <th class="py-3 px-2 font-medium text-white">Empresa</th>
-                        <th class="py-3 px-2 font-medium text-white">CNPJ</th>
-                        <th class="py-3 px-2 font-medium text-white">E-mail</th>
-                        <th class="py-3 px-2 font-medium text-white"></th>
-                        <th class="py-3 px-2 font-medium text-white"></th>
+                        <th class="py-3 px-4">Empresa</th>
+                        <th class="py-3 px-4">CNPJ</th>
+                        <th class="py-3 px-4">E-mail</th>
+                        <th class="py-3 px-4"></th>
+                        <th class="py-3 px-4"></th>
                     </tr>
                 </thead>
                 <tbody>
