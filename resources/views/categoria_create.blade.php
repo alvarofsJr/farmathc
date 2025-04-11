@@ -8,10 +8,10 @@
                     {{ session('message') }}
                 </div>
             @endif
-
+            
             <form method="POST" action="{{ route('categorias.store') }}" id="form-criar">
                 @csrf
-
+                <!-- Nome da Categoria -->
                 <div class="mb-4">
                     <label for="nome" class="block text-gray-700 font-medium mb-1">Nome da Categoria</label>
                     <input type="text" id="nome" name="nome" value="{{ old('nome') }}"
@@ -20,7 +20,7 @@
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
+                <!-- Tipo da Categoria -->
                 <div class="mb-6">
                     <label for="tipo" class="block text-gray-700 font-medium mb-1">Tipo da Categoria</label>
                     <select name="tipo" id="tipo"
@@ -33,9 +33,9 @@
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
+                <!-- Botões -->
                 <div class="flex justify-end gap-4">
-                <a href="{{ route('categorias.index') }}"
+                    <a href="{{ route('categorias.index') }}"
                         class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
                         Cancelar
                     </a>
@@ -47,8 +47,7 @@
             </form>
         </div>
     </div>
-
-    {{-- Modal de confirmação --}}
+    <!---- Modal de confirmação -->
     <div id="confirm-modal-criar" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white p-6 rounded shadow-md max-w-sm w-full">
             <h2 class="text-lg font-semibold mb-4 text-cyan-700 text-center">Confirmar criação</h2>

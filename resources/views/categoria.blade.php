@@ -41,8 +41,7 @@
                             <td>
                                 <button
                                     @click="categoriaId = {{ $categoria->id }}; categoriaNome = '{{ $categoria->nome }}'; showModal = true;"
-                                    class="text-red-600 hover:underline"
-                                >
+                                    class="text-red-600 hover:underline">
                                     Excluir
                                 </button>
                             </td>
@@ -55,8 +54,7 @@
             <div
                 x-show="showModal"
                 class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
-                style="display: none;"
-            >
+                style="display: none;">
                 <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
                     <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Confirmar Exclusão</h2>
                     <p class="text-center mb-6">Deseja realmente excluir a categoria <span class="font-semibold" x-text="categoriaNome"></span>?</p>
@@ -64,21 +62,18 @@
                         <form
                             method="POST"
                             :action="'/categorias/' + categoriaId"
-                            @submit="showModal = false"
-                        >
+                            @submit="showModal = false">
                             @csrf
                             @method('DELETE')
                             <button
                                 type="submit"
-                                class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-                            >
+                                class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
                                 Excluir
                             </button>
                         </form>
                         <button
                             @click="showModal = false"
-                            class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-                        >
+                            class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
                             Cancelar
                         </button>
                     </div>
