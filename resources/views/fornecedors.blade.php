@@ -1,8 +1,7 @@
 <x-app-layout>
     <div
         class="container mx-auto mt-8 px-4"
-        x-data="{ show: false, fornecedorId: null, openDeleteModal(id) { this.show = true; this.fornecedorId = id } }"
-    >
+        x-data="{ show: false, fornecedorId: null, openDeleteModal(id) { this.show = true; this.fornecedorId = id } }">
         <h1 class="text-2xl font-bold mb-6 text-center">Lista de Fornecedores</h1>
 
         @if(session()->has('message'))
@@ -53,14 +52,12 @@
                 </tbody>
             </table>
         </div>
-
         <!-- Modal de confirmação de exclusão -->
         <div
             x-show="show"
             x-transition
             x-cloak
-            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-        >
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white p-6 rounded shadow-lg max-w-md w-full">
                 <h2 class="text-lg font-bold mb-4 text-center text-red-600">Confirmar Exclusão</h2>
                 <p class="text-center mb-4">Tem certeza que deseja excluir este fornecedor?</p>

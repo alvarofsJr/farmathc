@@ -12,11 +12,9 @@
             <form id="form-edit-fornecedor"
                 action="{{ route('fornecedors.update', ['fornecedor' => $fornecedor->id]) }}"
                 method="POST"
-                class="space-y-4"
-            >
+                class="space-y-4">
                 @csrf
                 @method('PUT')
-
                 <!-- Nome da Empresa -->
                 <div class="mb-4">
                     <label for="nome_fantasia" class="block text-sm font-medium text-gray-700">Nome do Fornecedor</label>
@@ -28,7 +26,6 @@
                         <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
                 <!-- Email -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email do Fornecedor</label>
@@ -40,7 +37,6 @@
                         <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
                 <!-- CNPJ -->
                 <div class="mb-4" x-data>
                     <label for="cnpj" class="block text-sm font-medium text-gray-700">CNPJ do Fornecedor</label>
@@ -54,7 +50,6 @@
                         <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
                 <!-- Botões -->
                 <div class="flex justify-end gap-4">
                     <a href="/fornecedors"
@@ -69,14 +64,12 @@
                 </div>
             </form>
         </div>
-
         <!-- Modal de confirmação -->
         <div
             x-show="showConfirm"
             x-transition
             x-cloak
-            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-        >
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
                 <h2 class="text-lg font-bold mb-4 text-center text-cyan-700">Confirmar Alterações</h2>
                 <p class="text-center mb-4">Tem certeza que deseja atualizar este fornecedor?</p>

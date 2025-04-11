@@ -1,15 +1,15 @@
 <x-app-layout>
     <div class="container mx-auto mt-10 max-w-sm" x-data="{ showConfirm: false }">
-    @if(session()->has('message'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 mx-2">
-            {{ session()->get('message') }}
-        </div>
-    @endif
+        @if(session()->has('message'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 mx-2">
+                {{ session()->get('message') }}
+            </div>
+        @endif
         <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200">
             <h2 class="text-xl font-semibold mb-4 text-center">Novo Fornecedor</h2>
                 <form id="form-create-fornecedor" action="{{ route('fornecedors.store') }}" method="POST" class="space-y-4">
                     @csrf
-
+                    <!-- Nome da Empresa -->
                     <div class="mb-4">
                     <label for="nome_fantasia" class="block text-sm font-medium text-gray-700">Nome do Fornecedor</label>
                         <input type="text" name="nome_fantasia"
@@ -20,7 +20,7 @@
                             <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
+                    <!-- Email -->
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-700">Email do Fornecedor</label>
                         <input type="text" name="email"
@@ -31,9 +31,9 @@
                             <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
+                    <!-- CNPJ -->
                     <div class="mb-4" x-data>
-                    <label for="cnpj" class="block text-sm font-medium text-gray-700">CNPJ do Fornecedor</label>
+                        <label for="cnpj" class="block text-sm font-medium text-gray-700">CNPJ do Fornecedor</label>
                         <input type="text" name="cnpj"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                             value="{{ old('cnpj') }}"
@@ -44,7 +44,7 @@
                             <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
+                    <!-- Botões -->
                     <div class="flex justify-end gap-4">
                         <a href="/fornecedors"
                             class="bg-gray-500 hover:bg-gray-600 text-white text-center py-2 px-4 rounded">
@@ -59,7 +59,6 @@
                     </div>
                 </form>
         </div>
-
         <!-- Modal de confirmação -->
         <div
             x-show="showConfirm"
