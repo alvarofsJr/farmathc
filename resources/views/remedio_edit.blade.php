@@ -12,10 +12,9 @@
                 <form id="formEdicaoRemedio" x-ref="formEdicaoRemedio" action="{{ route('remedios.update', $remedio->id) }}" method="POST" class="space-y-4">
                     @csrf
                     @method('PUT')
-
                     <!-- Nome -->
                     <div class="mb-4">
-                    <label for="nome" class="block text-sm font-medium text-gray-700">Nome do Remédio</label>
+                        <label for="nome" class="block text-sm font-medium text-gray-700">Nome do Remédio</label>
                         <input type="text" name="nome" value="{{ old('nome', $remedio->nome) }}"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                             placeholder="Nome do remédio">
@@ -23,10 +22,9 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <!-- Categoria -->
                     <div class="mb-4">
-                    <label for="id_categoria" class="block text-sm font-medium text-gray-700">Categoria</label>
+                        <label for="id_categoria" class="block text-sm font-medium text-gray-700">Categoria</label>
                         <select name="id_categoria"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                             <option disabled {{ old('id_categoria', $remedio->id_categoria) ? '' : 'selected' }}>
@@ -42,10 +40,9 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <!-- Quantidade -->
                     <div class="mb-4">
-                    <label for="quantidade" class="block text-sm font-medium text-gray-700">Quantidade</label>
+                        <label for="quantidade" class="block text-sm font-medium text-gray-700">Quantidade</label>
                         <input type="number" name="quantidade" value="{{ old('quantidade', $remedio->quantidade) }}"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                             placeholder="Quantidade">
@@ -53,10 +50,9 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <!-- Valor -->
                     <div class="mb-4">
-                    <label for="valor" class="block text-sm font-medium text-gray-700">Valor</label>
+                        <label for="valor" class="block text-sm font-medium text-gray-700">Valor</label>
                         <input type="number" step="0.01" name="valor" value="{{ old('valor', $remedio->valor) }}"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                             placeholder="Valor">
@@ -64,10 +60,9 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <!-- Validade -->
                     <div class="mb-4">
-                    <label for="validade" class="block text-sm font-medium text-gray-700">Validade</label>
+                        <label for="validade" class="block text-sm font-medium text-gray-700">Validade</label>
                         <input type="text" name="validade"
                             value="{{ old('validade', \Carbon\Carbon::parse($remedio->validade)->format('d/m/Y')) }}"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
@@ -76,7 +71,6 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <!-- Botões -->
                     <div class="flex justify-end gap-4">
                         <a href="{{ route('remedios') }}"
@@ -86,12 +80,10 @@
                         <button type="button" @click="show = true"
                             class=" bg-cyan-600 hover:bg-cyan-700 text-white py-2 px-4 rounded">
                             Atualizar
-                        </button>
-                        
+                        </button>    
                     </div>
                 </form>
             </div>
-
         <!-- Modal de confirmação -->
         <div x-show="show" x-transition x-cloak
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

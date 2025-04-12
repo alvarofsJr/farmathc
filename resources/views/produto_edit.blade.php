@@ -21,7 +21,6 @@
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
                 <!-- Categoria -->
                 <div class="mb-4">
                     <label for="categoria" class="block text-gray-700 font-medium mb-1">Categoria do Produto</label>
@@ -38,7 +37,6 @@
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
                 <!-- Quantidade -->
                 <div class="mb-4">
                     <label for="quantidade" class="block text-gray-700 font-medium mb-1">Quantidade do Produto</label>
@@ -49,7 +47,6 @@
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
                 <!-- Valor -->
                 <div class="mb-4">
                     <label for="valor" class="block text-gray-700 font-medium mb-1">Valor do Produto</label>
@@ -60,7 +57,6 @@
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
                 <!-- Validade -->
                 <div class="mb-4" x-data>
                     <label for="validade" class="block text-gray-700 font-medium mb-1">Validade do Produto</label>
@@ -71,7 +67,7 @@
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
+                <!--Botões-->
                 <div class="flex justify-end gap-4">
                 <a href="{{ route('produtos.index') }}"
                         class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
@@ -79,7 +75,7 @@
                     </a>
                     <button type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded">Editar</button>
                 </div>
-
+                <!-- Modal -->
                 <div x-show="showModal" x-transition class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div class="bg-white p-6 rounded-lg shadow-md max-w-sm w-full">
                         <h2 class="text-lg font-semibold mb-4 text-center text-cyan-700 text-center">Confirmar Edição</h2>
