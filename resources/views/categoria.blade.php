@@ -65,6 +65,11 @@
                     <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Confirmar Exclusão</h2>
                     <p class="text-center mb-6">Deseja realmente excluir a categoria <span class="font-semibold" x-text="categoriaNome"></span>?</p>
                     <div class="flex justify-center space-x-4">
+                        <button
+                            @click="showModal = false"
+                            class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
+                            Cancelar
+                        </button>
                         <form
                             method="POST"
                             :action="'/categorias/' + categoriaId"
@@ -77,11 +82,6 @@
                                 Excluir
                             </button>
                         </form>
-                        <button
-                            @click="showModal = false"
-                            class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
-                            Cancelar
-                        </button>
                     </div>
                 </div>
             </div>
