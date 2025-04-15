@@ -5,10 +5,10 @@
         @if(session()->has('message'))
             <div id="message-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                 <div class="bg-white p-6 rounded-lg shadow-md max-w-sm w-full">
-                    <h2 class="text-lg font-semibold mb-4 text-center">Sucesso</h2>
+                    <h2 class="text-lg font-semibold mb-4 text-center text-cyan-700">Sucesso!</h2>
                     <p class="text-center text-gray-700">{{ session('message') }}</p>
                     <div class="mt-6 flex justify-center">
-                        <button onclick="document.getElementById('message-modal').classList.add('hidden')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">OK</button>
+                        <button onclick="document.getElementById('message-modal').classList.add('hidden')" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded">OK</button>
                     </div>
                 </div>
             </div>
