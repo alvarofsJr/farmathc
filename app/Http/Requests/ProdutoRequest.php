@@ -17,8 +17,8 @@ class ProdutoRequest extends FormRequest
             'nome'         => ['required', 'string', 'min:3', 'max:100'],
             'categoria_id' => ['required', 'exists:categorias,id'],
             'quantidade'   => ['required', 'integer', 'min:0'],
-            'valor'        => ['required', 'numeric', 'min:0'],
-            'validade'     => ['required', 'date_format:d/m/Y'],
+            'valor' => 'required|numeric|min:0.01',
+            'validade'     => ['required', 'regex:/^\d{2}\/\d{2}\/\d{4}$/', 'date_format:d/m/Y'],
         ];
     }
 

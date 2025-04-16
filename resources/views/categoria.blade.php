@@ -56,7 +56,6 @@
                 </tbody>
             </table>
 
-            <!-- Modal de Confirmação de Exclusão -->
             <div
                 x-show="showModal"
                 class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"

@@ -55,7 +55,6 @@
         </div>
     </div>
 
-    <!-- Modal de confirmação de exclusão -->
     <div id="delete-modal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50 z-50">
         <div class="bg-white p-6 rounded-lg shadow-md max-w-sm w-full">
             <h2 class="text-lg font-semibold mb-4 text-center text-red-600">Confirmar Exclusão</h2>

@@ -10,17 +10,15 @@
 
                 <form id="formCadastroRemedio" x-ref="formCadastroRemedio" action="{{ route('remedios.store') }}" method="POST" class="space-y-4">
                     @csrf
-                    <!-- Nome -->
                     <div class="mb-4">
                         <label for="nome" class="block text-sm font-medium text-gray-700">Nome do Remédio</label>
-                        <input type="text" name="nome" value="{{ old('nome') }}"
+                        <input type="text" name="nome" placeholder="Ex: Diazepam" value="{{ old('nome') }}"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                             placeholder="Nome do remédio">
                         @error('nome')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <!-- Categoria -->
                     <div class="mb-4">
                         <label for="id_categoria" class="block text-sm font-medium text-gray-700">Categoria</label>
                         <select name="id_categoria"
@@ -36,7 +34,6 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <!-- Quantidade -->
                     <div class="mb-4">
                         <label for="quantidade" class="block text-sm font-medium text-gray-700">Quantidade</label>
                         <input type="number" name="quantidade" value="{{ old('quantidade') }}"
@@ -46,28 +43,33 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <!-- Valor -->
+                  <!-- Valor -->
                     <div class="mb-4">
-                        <label for="valor" class="block text-sm font-medium text-gray-700">Valor</label>
-                        <input type="number" step="0.01" name="valor" value="{{ old('valor') }}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                            placeholder="Valor">
+                        <label for="valor_formatado" class="block text-sm font-medium text-gray-700">Valor</label>
+                        <input type="text" id="valor_formatado" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="Valor">
+                        <input type="hidden" name="valor" id="valor" value="{{ old('valor') }}">
                         @error('valor')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <!-- Validade -->
+
+
+
                     <div class="mb-4">
                         <label for="validade" class="block text-sm font-medium text-gray-700">Validade</label>
-                        <input type="text" name="validade" value="{{ old('validade') }}"
+                        <input type="text" name="validade"
+                            value="{{ old('validade') }}"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                             placeholder="Validade (dd/mm/aaaa)"
-                            x-data x-mask="99/99/9999">
+                            x-mask="99/99/9999"
+                            pattern="\d{2}/\d{2}/\d{4}"
+                            inputmode="numeric"
+                        >
                         @error('validade')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <!-- Botões -->
+
                     <div class="flex justify-end gap-4">
                         <a href="{{ route('remedios') }}"
                             class=" bg-gray-500 hover:bg-gray-600 text-white text-center py-2 px-4 rounded">
@@ -76,11 +78,10 @@
                         <button type="button" @click="show = true"
                             class="bg-cyan-600 hover:bg-cyan-700 text-white py-2 px-4 rounded">
                             Cadastrar
-                        </button>                      
+                        </button>
                     </div>
                 </form>
             </div>
-        <!-- Modal de confirmação -->
         <div x-show="show" x-transition x-cloak
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white p-6 rounded shadow max-w-md w-full">
@@ -95,4 +96,48 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputFormatado = document.getElementById('valor_formatado');
+            const inputValorReal = document.getElementById('valor');
+
+            Inputmask("currency", {
+                prefix: "R$ ",
+                groupSeparator: ".",
+                radixPoint: ",",
+                digits: 2,
+                autoGroup: true,
+                rightAlign: false
+            }).mask(inputFormatado);
+
+            if (inputValorReal.value) {
+                const valor = parseFloat(inputValorReal.value).toFixed(2).replace('.', ',');
+                inputFormatado.value = `R$ ${valor}`;
+            }
+
+            inputFormatado.addEventListener('input', () => {
+                const valor = inputFormatado.value
+                    .replace(/[^\d,]/g, '')
+                    .replace(',', '.');
+                inputValorReal.value = valor;
+            });
+
+            Inputmask("99/99/9999").mask("#validade");
+        });
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('formRemedio', () => ({
+                showModal: false,
+                confirmarEnvio(form) {
+                    form.submit();
+                }
+            }));
+        });
+    </script>
+
+
+
+
+
 </x-app-layout>

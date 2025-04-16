@@ -9,7 +9,6 @@
             <h2 class="text-xl font-semibold mb-4 text-center">Novo Fornecedor</h2>
                 <form id="form-create-fornecedor" action="{{ route('fornecedors.store') }}" method="POST" class="space-y-4">
                     @csrf
-                    <!-- Nome da Empresa -->
                     <div class="mb-4">
                     <label for="nome_fantasia" class="block text-sm font-medium text-gray-700">Nome do Fornecedor</label>
                         <input type="text" name="nome_fantasia"
@@ -20,7 +19,6 @@
                             <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <!-- Email -->
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-700">Email do Fornecedor</label>
                         <input type="text" name="email"
@@ -31,7 +29,6 @@
                             <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <!-- CNPJ -->
                     <div class="mb-4" x-data>
                         <label for="cnpj" class="block text-sm font-medium text-gray-700">CNPJ do Fornecedor</label>
                         <input type="text" name="cnpj"
@@ -44,7 +41,6 @@
                             <p class="text-red-500 text-sm absolute mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <!-- Botões -->
                     <div class="flex justify-end gap-4">
                         <a href="/fornecedors"
                             class="bg-gray-500 hover:bg-gray-600 text-white text-center py-2 px-4 rounded">
@@ -59,7 +55,6 @@
                     </div>
                 </form>
         </div>
-        <!-- Modal de confirmação -->
         <div
             x-show="showConfirm"
             x-transition

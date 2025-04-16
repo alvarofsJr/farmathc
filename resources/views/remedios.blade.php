@@ -59,7 +59,6 @@
                 </tbody>
             </table>
         </div>
-        <!-- Modal de confirmação de exclusão -->
         <div
             x-show="show"
             x-transition
