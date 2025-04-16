@@ -35,7 +35,7 @@
                         <tr class="border-b bg-gray-100">
                             <td class="py-2 px-2">{{ $categoria->nome }}</td>
                             <td class="py-2 px-2">
-                                <span class="px-2 py-1 rounded-full text-white text-xs {{ $categoria->tipo === 'produto' ? 'bg-blue-500' : 'bg-purple-600' }}">
+                                <span class="px-2 py-1 rounded-full text-white text-xs {{ $categoria->tipo === 'produto' ? 'bg-cyan-600' : 'bg-red-600' }}">
                                     {{ ucfirst($categoria->tipo) }}
                                 </span>
                             </td>
