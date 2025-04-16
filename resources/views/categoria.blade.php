@@ -3,8 +3,14 @@
         <h1 class="text-2xl font-bold mb-6 text-center">Lista de Categorias</h1>
 
         @if(session()->has('message'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 mx-4 text-center" role="alert">
-                <span class="block sm:inline">{{ session()->get('message') }}</span>
+            <div id="message-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <div class="bg-white p-6 rounded-lg shadow-md max-w-sm w-full">
+                    <h2 class="text-lg font-semibold mb-4 text-center text-cyan-700">Sucesso!</h2>
+                    <p class="text-center text-gray-700">{{ session('message') }}</p>
+                    <div class="mt-6 flex justify-center">
+                        <button onclick="document.getElementById('message-modal').classList.add('hidden')" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded">OK</button>
+                    </div>
+                </div>
             </div>
         @endif
 
@@ -29,7 +35,7 @@
                         <tr class="border-b bg-gray-100">
                             <td class="py-2 px-2">{{ $categoria->nome }}</td>
                             <td class="py-2 px-2">
-                                <span class="px-2 py-1 rounded-full text-white text-xs {{ $categoria->tipo === 'produto' ? 'bg-blue-500' : 'bg-purple-600' }}">
+                                <span class="px-2 py-1 rounded-full text-white text-xs {{ $categoria->tipo === 'produto' ? 'bg-cyan-600' : 'bg-red-600' }}">
                                     {{ ucfirst($categoria->tipo) }}
                                 </span>
                             </td>
@@ -59,6 +65,11 @@
                     <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Confirmar Exclusão</h2>
                     <p class="text-center mb-6">Deseja realmente excluir a categoria <span class="font-semibold" x-text="categoriaNome"></span>?</p>
                     <div class="flex justify-center space-x-4">
+                        <button
+                            @click="showModal = false"
+                            class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
+                            Cancelar
+                        </button>
                         <form
                             method="POST"
                             :action="'/categorias/' + categoriaId"
@@ -71,11 +82,6 @@
                                 Excluir
                             </button>
                         </form>
-                        <button
-                            @click="showModal = false"
-                            class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
-                            Cancelar
-                        </button>
                     </div>
                 </div>
             </div>
