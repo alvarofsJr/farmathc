@@ -41,7 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/fornecedors/{fornecedor}', [FornecedorController::class, 'destroy'])->name('fornecedors.destroy');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function ()  {
     Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
     Route::get('/categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
     Route::post('/categorias', [CategoriaController::class, 'store'])->name('categorias.store');
@@ -64,4 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
 require __DIR__.'/auth.php';
+
+
