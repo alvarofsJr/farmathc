@@ -15,7 +15,7 @@
                 <div class="mb-4">
                     <label for="nome" class="block text-gray-700 font-medium mb-1">Nome da Categoria</label>
                     <input type="text" id="nome" name="nome" value="{{ old('nome') }}"
-                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('nome')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -24,7 +24,7 @@
                 <div class="mb-6">
                     <label for="tipo" class="block text-gray-700 font-medium mb-1">Tipo da Categoria</label>
                     <select name="tipo" id="tipo"
-                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         <option value="">Selecione um tipo</option>
                         <option value="produto" {{ old('tipo') == 'produto' ? 'selected' : '' }}>Produto</option>
                         <option value="remedio" {{ old('tipo') == 'remedio' ? 'selected' : '' }}>Remédio Controlado</option>

@@ -61,7 +61,8 @@
                         <label for="validade" class="block text-sm font-medium text-gray-700">Validade</label>
                         <input type="text" name="validade" value="{{ old('validade') }}"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                            placeholder="Validade (dd/mm/aaaa)">
+                            placeholder="Validade (dd/mm/aaaa)"
+                            x-data x-mask="99/99/9999">
                         @error('validade')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
